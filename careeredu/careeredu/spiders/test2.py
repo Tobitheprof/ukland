@@ -4,10 +4,10 @@ from careeredu.items import ApplicationItem
 
 class PlanningSpider(scrapy.Spider):
     name = "test"
-    allowed_domains = ["pa.canterbury.gov.uk"]
+    allowed_domains = ["planning.bournemouth.gov.uk"]
 
     def start_requests(self):
-        url = "https://pa.canterbury.gov.uk/online-applications/search.do?action=advanced"
+        url = "https://planning.adur-worthing.gov.uk/online-applications/search.do?action=advanced"
         yield scrapy.Request(url=url, callback=self.submit_form)
 
     
@@ -18,7 +18,6 @@ class PlanningSpider(scrapy.Spider):
             'searchCriteria.address' : 'ae',
             'date(applicationValidatedEnd)' : '14/06/2023',
             'date(applicationValidatedStart)' : '01/01/1974'
-
             #ddmmyy
         }
         yield scrapy.FormRequest.from_response(response, formdata=data, callback=self.parse_results_page, dont_filter=True)
